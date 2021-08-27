@@ -1,0 +1,19 @@
+{
+  "name": "@zhengxs/codelabs",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "format": "prettier '**/*.[tj]s' '**/*.[tj]sx' '**/*.{json,md}' --write"
+  },
+  "devDependencies": {
+    "prettier": "^2.3.2"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "author": {
+    "name": "zhengxs",
+    "email": "zhengxs2018@foxmail.com"
+  },
+  "license": "MIT"
+}

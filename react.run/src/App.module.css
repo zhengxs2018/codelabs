@@ -1,0 +1,26 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+.header {
+  padding: 10px;
+  text-align: right;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.editorContainer,
+.previewContainer {
+  padding: 10px;
+  width: 50%;
+  height: 100%;
+  box-sizing: border-box;
+}
