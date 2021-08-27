@@ -29,13 +29,35 @@ Preview.defaultProps = {
 export default Preview
 
 function toHTML(code: string): string {
-  return `<!DOCTYPE html>
+  try {
+    return `<!DOCTYPE html>
   <html>
     <body>
     <div id="root"></div>
+    <script>
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
+      const rootEl = document.querySelector('#root')
+      rootEl.innerHTML = \`<div style="color:red"><pre><code>\${error.stack}</code></pre></div>\`
+      return false;
+    };
+    </script>
     <script type="module">
     ${parse(code)}
     </script>
     </body>
   </html>`
+  } catch (err) {
+    return `<!DOCTYPE html>
+    <html>
+      <body>
+      <div style="color:red">
+        <pre><code>${encode(err.stack)}</code></pre>
+      </div>
+      </body>
+    </html>`
+  }
+}
+
+function encode(str: string): string {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') ;
 }
