@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent } from 'react'
 
-import SplitPane, { Pane } from 'react-split-pane'
+import SplitPane from 'react-split-pane'
 
 import Editor from './components/Editor'
 import Preview from './components/Preview'
