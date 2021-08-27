@@ -25,7 +25,7 @@ export default defineConfig({
     }),
     reactRefresh(),
     importString({
-      include: ['src/**/*.tpl'],
+      include: ['src/**/*.react'],
       compress: false,
     }),
   ],

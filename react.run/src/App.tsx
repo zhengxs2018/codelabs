@@ -1,33 +1,35 @@
 import React, { useState, ChangeEvent } from 'react'
+
 import Editor from './components/Editor'
 import Preview from './components/Preview'
 
-import hello from './examples/hello.tpl'
-import hook from './examples/hook.tpl'
-
 import styles from './App.module.css'
 
-const examples = {
-  hello,
-  hook,
-}
+const { files, templates, defaultFilename, defaultCode } = getExamples()
 
 function App() {
-  const [code, setCode] = useState(hello)
-  const [selected, setSelected] = useState('hello')
+  const [code, setCode] = useState(defaultCode)
+  const [selected, setSelected] = useState(defaultFilename)
 
   function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
-    const value = event.target.value as keyof typeof examples
-    setSelected(value)
-    setCode(examples[value])
+    const filename = event.target.value
+
+    setSelected(filename)
+    setCode(templates[filename])
   }
 
   return (
     <div className={styles.app}>
       <header className={styles.header}>
+        <span>选择文件：</span>
         <select value={selected} onChange={handleSelectChange}>
-          <option value="hello">hello</option>
-          <option value="hook">hook</option>
+          {files.map(filename => {
+            return (
+              <option value={filename} key={filename}>
+                {filename}
+              </option>
+            )
+          })}
         </select>
       </header>
       <main className={styles.main}>
@@ -43,3 +45,18 @@ function App() {
 }
 
 export default App
+
+function getExamples() {
+  const modules = import.meta.globEager('./examples/**/*.react')
+  const files = Object.keys(modules)
+  const templates = files.reduce((templates, filename) => {
+    const mod = modules[filename]
+    templates[filename] = mod.default
+    return templates
+  }, {} as Record<string, string>)
+
+  const defaultFilename = files[0]
+  const defaultCode = templates[defaultFilename]
+
+  return { files, templates, defaultFilename, defaultCode }
+}

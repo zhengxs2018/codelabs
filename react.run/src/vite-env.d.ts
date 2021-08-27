@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-declare module '*.tpl' {
+declare module '*.react' {
   const tpl: string
   export default tpl
 }
