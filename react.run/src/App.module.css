@@ -18,16 +18,12 @@
 
 .editorContainer,
 .previewContainer {
+  display: flex;
+  flex-direction: column;
   padding: 10px;
   width: 50%;
   height: 100%;
   box-sizing: border-box;
-}
-
-.editorContainer {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
 }
 
 .splitView {

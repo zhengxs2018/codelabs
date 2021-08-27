@@ -49,7 +49,10 @@ function App() {
           </div>
         </div>
         <div className={styles.previewContainer}>
-          <Preview css={css} script={script} />
+          <div>预览</div>
+          <div style={{ height: '100%' }}>
+            <Preview css={css} script={script} />
+          </div>
         </div>
       </main>
     </div>
