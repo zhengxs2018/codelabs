@@ -12,11 +12,6 @@ export default defineConfig({
         autoComplete('react'),
         autoComplete('react-dom'),
         {
-          name: 'prop-types',
-          var: 'PropTypes',
-          path: 'prop-types.min.js'
-        },
-        {
           name: '@babel/standalone',
           var: 'Babel',
           path: `babel.min.js`,
