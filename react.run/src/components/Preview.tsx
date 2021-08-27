@@ -51,7 +51,7 @@ function toHTML(code: string): string {
     <html>
       <body>
       <div style="color:red">
-        <pre><code>${encode(err.stack)}</code></pre>
+        <pre><code>${encode((err as Error).stack!)}</code></pre>
       </div>
       </body>
     </html>`
