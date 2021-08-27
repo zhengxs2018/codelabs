@@ -10,12 +10,12 @@ export type EditorProps = {
 }
 
 const Editor: FC<EditorProps> = ({ value, onChange }) => {
-  // loading
   return (
     <div className={styles.editor}>
       <MonacoEditor
         defaultLanguage="javascript"
         value={value}
+        options={{ minimap: { enabled: false } }}
         onChange={value => onChange(value || '')}
       />
     </div>
