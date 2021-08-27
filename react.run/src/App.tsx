@@ -8,14 +8,15 @@ import styles from './App.module.css'
 const { files, templates, defaultFilename, defaultCode } = getExamples()
 
 function App() {
-  const [code, setCode] = useState(defaultCode)
+  const [css, setCss] = useState('#root {\n color: red; \n}')
+  const [script, setScript] = useState(defaultCode)
   const [selected, setSelected] = useState(defaultFilename)
 
   function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const filename = event.target.value
 
     setSelected(filename)
-    setCode(templates[filename])
+    setScript(templates[filename])
   }
 
   return (
@@ -34,10 +35,21 @@ function App() {
       </header>
       <main className={styles.main}>
         <div className={styles.editorContainer}>
-          <Editor value={code} onChange={setCode} />
+          <div className={styles.splitView}>
+            <div>javascript</div>
+            <div style={{ height: '100%' }}>
+              <Editor value={script} onChange={setScript} />
+            </div>
+          </div>
+          <div className={styles.splitView}>
+            <div>css</div>
+            <div style={{ height: '100%' }}>
+              <Editor value={css} language="css" onChange={setCss} />
+            </div>
+          </div>
         </div>
         <div className={styles.previewContainer}>
-          <Preview value={code} />
+          <Preview css={css} script={script} />
         </div>
       </main>
     </div>

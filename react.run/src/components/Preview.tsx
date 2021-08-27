@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 
 import { parse } from '../lib/react-sfc-compiler'
 import useDebounce from '../hooks/use-debounce'
@@ -8,16 +8,17 @@ import Sandbox from './Sandbox'
 import styles from './Preview.module.css'
 
 export type PreviewProps = {
-  value: string
+  script: string
+  css?: string
   delay?: number
 }
 
-const Preview: FC<PreviewProps> = ({ value, delay }) => {
-  const debounceValue = useDebounce(value, delay)
+const Preview: FC<PreviewProps> = ({ css, script, delay }) => {
+  const code = useDebounce(script, delay)
 
   return (
     <div className={styles.container}>
-      <Sandbox html={debounceValue && toHTML(debounceValue)} />
+      <Sandbox html={code && toHTML(code, css)} />
     </div>
   )
 }
@@ -28,10 +29,13 @@ Preview.defaultProps = {
 
 export default Preview
 
-function toHTML(code: string): string {
+function toHTML(code: string, css?: string): string {
   try {
     return `<!DOCTYPE html>
   <html>
+    <head>
+    <style>${css || ''}</style>
+    </head>
     <body>
     <div id="root"></div>
     <script>
@@ -59,5 +63,5 @@ function toHTML(code: string): string {
 }
 
 function encode(str: string): string {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') ;
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
