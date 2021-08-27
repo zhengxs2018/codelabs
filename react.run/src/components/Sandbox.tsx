@@ -31,6 +31,8 @@ const Sandbox: FC<SandboxProps> = props => {
       className={styles.container}
       sandbox={toSandboxAttrValue(props)}
       scrolling="yes"
+      // 强制每次渲染都重新生成 iframe 节点
+      key={Date.now()}
       ref={ref}
     />
   )

@@ -6,26 +6,13 @@
 }
 
 .header {
-  display: flex;
-  flex-direction: row;
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
 }
 
 .main {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 100%;
-}
-
-.editorContainer,
-.previewContainer {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  width: 50%;
+  position: relative;
   height: 100%;
   box-sizing: border-box;
 }
@@ -34,5 +21,9 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 50%;
+  height: 100%;
+}
+
+.splitTitle {
+  padding: 10px 26px;
 }

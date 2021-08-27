@@ -1,5 +1,7 @@
 import React, { useState, ChangeEvent } from 'react'
 
+import SplitPane, { Pane } from 'react-split-pane'
+
 import Editor from './components/Editor'
 import Preview from './components/Preview'
 
@@ -8,9 +10,9 @@ import styles from './App.module.css'
 const { files, templates, defaultFilename, defaultCode } = getExamples()
 
 function App() {
-  const [css, setCss] = useState('h1 {\n color: red; \n}')
+  const [head, setHead] = useState('<script src="//cdn.jsdelivr.net/npm/eruda"></script>\n<script>eruda.init()</script>')
   const [code, setCode] = useState(defaultCode)
-  const [head, setHead] = useState('')
+  const [css, setCss] = useState('h1 {\n color: red; \n}')
   const [selected, setSelected] = useState(defaultFilename)
 
   function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
@@ -23,48 +25,52 @@ function App() {
   return (
     <div className={styles.app}>
       <header className={styles.header}>
-        <div style={{ width: '50%' }}>
-          <span>选择文件：</span>
-          <select value={selected} onChange={handleSelectChange}>
-            {files.map(filename => {
-              return (
-                <option value={filename} key={filename}>
-                  {filename}
-                </option>
-              )
-            })}
-          </select>
-        </div>
-        <div style={{ width: '50%' }}>
-          <textarea
-            value={head}
-            placeholder="动态插入预览页 head 的内容"
-            style={{ width: '100%' }}
-            onChange={event => setHead(event.target.value)}
-          />
-        </div>
+        <span>选择文件：</span>
+        <select value={selected} onChange={handleSelectChange}>
+          {files.map(filename => {
+            return (
+              <option value={filename} key={filename}>
+                {filename}
+              </option>
+            )
+          })}
+        </select>
       </header>
       <main className={styles.main}>
-        <div className={styles.editorContainer}>
+        <SplitPane split="vertical" minSize="60%">
+          <SplitPane split="horizontal" minSize="50%">
+            <div className={styles.splitView}>
+              <div className={styles.splitTitle}>javascript</div>
+              <div style={{ height: '100%' }}>
+                <Editor value={code} onChange={setCode} />
+              </div>
+            </div>
+
+            <SplitPane split="horizontal" minSize="50%">
+              <div className={styles.splitView}>
+                <div className={styles.splitTitle}>css</div>
+                <div style={{ height: '100%' }}>
+                  <Editor value={css} language="css" onChange={setCss} />
+                </div>
+              </div>
+              <div className={styles.splitView}>
+                <div className={styles.splitTitle}>
+                  动态插入脚本或样式
+                </div>
+                <div style={{ height: '100%' }}>
+                  <Editor value={head} language="html" onChange={setHead} />
+                </div>
+              </div>
+            </SplitPane>
+          </SplitPane>
+
           <div className={styles.splitView}>
-            <div>javascript</div>
+            <div className={styles.splitTitle}>预览</div>
             <div style={{ height: '100%' }}>
-              <Editor value={code} onChange={setCode} />
+              <Preview head={head} script={code} css={css} />
             </div>
           </div>
-          <div className={styles.splitView}>
-            <div>css</div>
-            <div style={{ height: '100%' }}>
-              <Editor value={css} language="css" onChange={setCss} />
-            </div>
-          </div>
-        </div>
-        <div className={styles.previewContainer}>
-          <div>预览</div>
-          <div style={{ height: '100%' }}>
-            <Preview head={head} script={code} css={css} />
-          </div>
-        </div>
+        </SplitPane>
       </main>
     </div>
   )
