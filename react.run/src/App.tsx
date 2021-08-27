@@ -8,37 +8,48 @@ import styles from './App.module.css'
 const { files, templates, defaultFilename, defaultCode } = getExamples()
 
 function App() {
-  const [css, setCss] = useState('#root {\n color: red; \n}')
-  const [script, setScript] = useState(defaultCode)
+  const [css, setCss] = useState('h1 {\n color: red; \n}')
+  const [code, setCode] = useState(defaultCode)
+  const [head, setHead] = useState('')
   const [selected, setSelected] = useState(defaultFilename)
 
   function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const filename = event.target.value
 
     setSelected(filename)
-    setScript(templates[filename])
+    setCode(templates[filename])
   }
 
   return (
     <div className={styles.app}>
       <header className={styles.header}>
-        <span>选择文件：</span>
-        <select value={selected} onChange={handleSelectChange}>
-          {files.map(filename => {
-            return (
-              <option value={filename} key={filename}>
-                {filename}
-              </option>
-            )
-          })}
-        </select>
+        <div style={{ width: '50%' }}>
+          <span>选择文件：</span>
+          <select value={selected} onChange={handleSelectChange}>
+            {files.map(filename => {
+              return (
+                <option value={filename} key={filename}>
+                  {filename}
+                </option>
+              )
+            })}
+          </select>
+        </div>
+        <div style={{ width: '50%' }}>
+          <textarea
+            value={head}
+            placeholder="动态插入预览页 head 的内容"
+            style={{ width: '100%' }}
+            onChange={event => setHead(event.target.value)}
+          />
+        </div>
       </header>
       <main className={styles.main}>
         <div className={styles.editorContainer}>
           <div className={styles.splitView}>
             <div>javascript</div>
             <div style={{ height: '100%' }}>
-              <Editor value={script} onChange={setScript} />
+              <Editor value={code} onChange={setCode} />
             </div>
           </div>
           <div className={styles.splitView}>
@@ -51,7 +62,7 @@ function App() {
         <div className={styles.previewContainer}>
           <div>预览</div>
           <div style={{ height: '100%' }}>
-            <Preview css={css} script={script} />
+            <Preview head={head} script={code} css={css} />
           </div>
         </div>
       </main>

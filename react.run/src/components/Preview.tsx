@@ -8,17 +8,18 @@ import Sandbox from './Sandbox'
 import styles from './Preview.module.css'
 
 export type PreviewProps = {
-  script: string
   css?: string
+  script: string
+  head?: string
   delay?: number
 }
 
-const Preview: FC<PreviewProps> = ({ css, script, delay }) => {
+const Preview: FC<PreviewProps> = ({ head, script, css, delay }) => {
   const code = useDebounce(script, delay)
 
   return (
     <div className={styles.container}>
-      <Sandbox html={code && toHTML(code, css)} />
+      <Sandbox html={code && toHTML(code, css, head)} />
     </div>
   )
 }
@@ -29,15 +30,20 @@ Preview.defaultProps = {
 
 export default Preview
 
-function toHTML(code: string, css?: string): string {
+function toHTML(
+  code: string,
+  css: string = '',
+  head: string = ''
+): string {
   try {
     return `<!DOCTYPE html>
   <html>
     <head>
-    <style>${css || ''}</style>
+    ${head}
     </head>
     <body>
     <div id="root"></div>
+    <style>${css}</style>
     <script>
     window.onerror = function (msg, url, lineNo, columnNo, error) {
       const rootEl = document.querySelector('#root')
