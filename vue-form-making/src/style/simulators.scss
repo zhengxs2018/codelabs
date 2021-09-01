@@ -1,0 +1,29 @@
+@import '~sass-bem/bem';
+@import './var';
+
+@include c('pc-simulator', $--vdn-prefix) {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+
+@include c('mobile-simulator', $--vdn-prefix) {
+  width: 100%;
+  height: 100%;
+  background: #eee;
+
+  @include e('body') {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  @include e('viewport') {
+    position: absolute;
+    width: 375px;
+    height: 667px;
+    overflow: hidden;
+    background: #fff;
+  }
+}

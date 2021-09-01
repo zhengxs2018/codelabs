@@ -1,0 +1,75 @@
+@import '~sass-bem/bem';
+@import './var';
+
+@include c('drag-source', $--vdn-prefix) {
+  @include e('header') {
+    display: flex;
+    align-items: center;
+    padding: 5px 8px;
+    font-size: 14px;
+    color: #888;
+    background: #efefef;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.25s ease-in-out;
+
+    @include hover {
+      color: #333;
+    }
+  }
+
+  @include e('arrow-icon') {
+    margin-right: 9px;
+    width: 12px;
+    transform: rotate(-90deg);
+    transition: all 0.15s ease-in-out;
+  }
+
+  @include is('expand') {
+    @include e('arrow-icon') {
+      transform: rotate(0deg);
+    }
+  }
+
+  @include e('content') {
+    display: grid;
+    grid-template-columns: repeat(3, 33.3333%);
+    grid-gap: 1px;
+    background: #fff;
+    border: 1px solid #ddd;
+  }
+}
+
+@include c('drag-source-item', $--vdn-prefix) {
+  position: relative;
+  user-select: none;
+  padding: 8px 10px;
+  min-height: 40px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: grab;
+  transition: color 0.1s ease-out;
+
+  @include hover {
+    color: #40a9ff;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    z-index: 1;
+  }
+
+  @include element('text') {
+    text-align: center;
+    font-size: 12px;
+  }
+
+  @include m('ghost') {
+    border: 2px solid #1890ff;
+
+    @include element('text') {
+      font-size: 0;
+    }
+  }
+}

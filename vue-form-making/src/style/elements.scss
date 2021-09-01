@@ -1,0 +1,72 @@
+@import '~sass-bem/bem';
+@import './var';
+
+// 根元素
+@include c('root-element', $--vdn-prefix) {
+  height: 100%;
+
+  @include e('content') {
+    height: 100%;
+  }
+}
+
+// 递归元素
+@include c('recursion-element', $--vdn-prefix) {
+  min-height: 20px;
+}
+
+// 设计元素
+@include c('schema-element', $--vdn-prefix) {
+  position: relative;
+  width: 100%;
+  cursor: move;
+  padding: 8px 6px;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+
+  // 虚线盒子
+  // hack 解决 css 无法屏蔽子元素的 hover 效果
+  @include e('dash-box') {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border: 1px dashed transparent;
+
+    @include hover {
+      border-color: rgb(68 100 255 / 80%);
+    }
+  }
+
+  // 内容区域
+  @include e('content') {
+    min-height: 20px;
+  }
+
+  // 内容区域
+  @include e('top') {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  // 内容区域
+  @include e('bottom') {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+  }
+
+  // 激活状态
+  @include is('active') {
+    border-color: #1890ff;
+  }
+
+  // 激活时线框不显示
+  &.is-active > &__dash-box {
+    display: none;
+  }
+}

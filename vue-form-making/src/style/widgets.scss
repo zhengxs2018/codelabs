@@ -1,0 +1,57 @@
+@import '~sass-bem/bem';
+@import './var';
+
+@include c('design-toolbar', $--vdn-prefix) {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  padding: 0px 4px;
+
+  @include e('tools') {
+    display: flex;
+    align-items: center;
+  }
+}
+
+
+// 辅助工具
+@include c('auxtool', $--vdn-prefix) {
+  position: absolute;
+  z-index: 10;
+  padding: 2px 0;
+  box-sizing: border-box;
+
+  @include m('top') {
+    top: 0;
+    right: 4px;
+  }
+
+  @include m('bottom') {
+    top: 100%;
+    right: 0;
+  }
+}
+
+// 辅助工具按钮
+@include c('aux-btn', $--vdn-prefix) {
+  display: inline-block;
+  padding: 0 3px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #fff;
+  background: #1890ff;
+  border: 1px solid #1890ff;
+  border-radius: 2px;
+  box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  text-align: center;
+
+  @include duo {
+    margin-left: 4px;
+  }
+}

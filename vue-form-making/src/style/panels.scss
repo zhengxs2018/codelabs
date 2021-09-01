@@ -1,0 +1,45 @@
+@import '~sass-bem/bem';
+@import './var';
+
+@include c('panel', $--vdn-prefix) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+
+  @include e('header') {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 7px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #666;
+    border-bottom: 1px solid #ddd;
+  }
+
+  @include e('title') {
+    font-size: 20px;
+  }
+}
+
+@include c('workspace-panel', $--vdn-prefix) {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  padding: 4px;
+  background-color: #eee;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+@include c('composite-panel', $--vdn-prefix) {
+  position: relative;
+  z-index: 2;
+  width: 300px;
+}
+
+@include c('settings-panel', $--vdn-prefix) {
+  // pass
+}

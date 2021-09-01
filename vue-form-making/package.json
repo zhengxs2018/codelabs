@@ -1,0 +1,30 @@
+{
+  "name": "@zhengxs/vue-form-making",
+  "version": "0.1.0",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "vue": "^2.6.11",
+    "vuedraggable": "^2.24.3"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.172",
+    "async-validator": "1.11.5",
+    "element-ui": "^2.15.5",
+    "sass": "^1.38.2",
+    "sass-bem": "^2.6.5",
+    "sass-loader": "^8.0.2",
+    "vuepress": "^1.8.2"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "author": {
+    "name": "zhengxs",
+    "email": "zhengxs2018@foxmail.com"
+  },
+  "license": "MIT"
+}
