@@ -1,3 +1,6 @@
 {
-  "cSpell.words": ["codelabs"]
+  "cSpell.words": ["codelabs"],
+  "files.associations": {
+    "*.react": "javascriptreact"
+  }
 }
